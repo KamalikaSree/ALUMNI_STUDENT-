@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MentorConnect</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="logo">
+                MC
+            </div>
+
+            <div>
+                <h2>MentorConnect</h2>
+                <span>Mentorship Platform</span>
+            </div>
+
+        </div>
+
+        <nav>
+
+            <button class="nav-btn active"
+                    onclick="showPage('dashboard')">
+                Dashboard
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('alumni')">
+                Alumni
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('students')">
+                Students
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('matching')">
+                Smart Matching
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('sessions')">
+                Sessions
+            </button>
+
+            <button class="nav-btn"
+                    onclick="showPage('reports')">
+                Reports
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <span>MentorConnect</span>
+            <small>Academic Project</small>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+
+                <h1 id="pageTitle">
+                    Dashboard
+                </h1>
+
+                <p>
+                    Alumni-Student Mentorship Management
+                </p>
+
+            </div>
+
+            <div class="status">
+                <span></span>
+                System Online
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard"
+                 class="page active-page">
+
+            <div class="stats">
+
+                <div class="stat-card">
+                    <span>Alumni</span>
+                    <strong id="alumniCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Students</span>
+                    <strong id="studentCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Active Pairs</span>
+                    <strong id="pairCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Total Sessions</span>
+                    <strong id="sessionCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Scheduled</span>
+                    <strong id="scheduledCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Completed</span>
+                    <strong id="completedCount">0</strong>
+                </div>
+
+                <div class="stat-card">
+                    <span>Cancelled</span>
+                    <strong id="cancelledCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="welcome">
+
+                <div>
+
+                    <h2>
+                        Build meaningful mentorship connections.
+                    </h2>
+
+                    <p>
+                        Match students with alumni based on
+                        shared interests and track mentorship
+                        progress.
+                    </p>
+
+                </div>
+
+                <button onclick="showPage('matching')">
+                    Find a Mentor
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ALUMNI -->
+        <section id="alumni"
+                 class="page">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Alumni</h2>
+
+                    <p>
+                        Manage alumni mentors.
+                    </p>
+
+                </div>
+
+                <button onclick="openAlumniForm()">
+                    + Add Alumni
+                </button>
+
+            </div>
+
+            <div id="alumniList"
+                 class="cards">
+            </div>
+
+        </section>
+
+
+        <!-- STUDENTS -->
+        <section id="students"
+                 class="page">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Students</h2>
+
+                    <p>
+                        Manage student profiles.
+                    </p>
+
+                </div>
+
+                <button onclick="openStudentForm()">
+                    + Add Student
+                </button>
+
+            </div>
+
+            <div id="studentList"
+                 class="cards">
+            </div>
+
+        </section>
+
+
+        <!-- SMART MATCHING -->
+        <section id="matching"
+                 class="page">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>Smart Mentor Matching</h2>
+
+                    <p>
+                        Suggestions are ranked using
+                        overlapping interest tags.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="matching-box">
+
+                <div class="matching-select">
+
+                    <label>
+                        Select Student
+                    </label>
+
+                    <select id="matchingStudent">
+
+                        <option value="">
+                            Select a student
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button onclick="findMatches()">
+                    Find Matching Mentors
+                </button>
+
+            </div>
+
+            <div id="matchList"
+                 class="cards">
+            </div>
+
+        </section>
+
+
+        <!-- SESSIONS -->
+        <section id="sessions"
+                 class="page">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Mentoring Sessions
+                    </h2>
+
+                    <p>
+                        Schedule and track your mentorship sessions.
+                    </p>
+
+                </div>
+
+                <button onclick="openSessionForm()">
+                    + Schedule Session
+                </button>
+
+            </div>
+
+
+            <!-- FILTERS -->
+            <div class="session-filters">
+
+                <button class="session-filter active"
+                        onclick="filterSessions('ALL', this)">
+                    All
+                </button>
+
+                <button class="session-filter"
+                        onclick="filterSessions('SCHEDULED', this)">
+                    Scheduled
+                </button>
+
+                <button class="session-filter"
+                        onclick="filterSessions('COMPLETED', this)">
+                    Completed
+                </button>
+
+                <button class="session-filter"
+                        onclick="filterSessions('CANCELLED', this)">
+                    Cancelled
+                </button>
+
+            </div>
+
+
+            <div id="sessionList"
+                 class="cards">
+            </div>
+
+        </section>
+
+
+        <!-- REPORTS -->
+        <section id="reports"
+                 class="page">
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        Engagement Report
+                    </h2>
+
+                    <p>
+                        Mentorship session activity.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div id="reportList">
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- MODAL -->
+<div id="modal"
+     class="modal">
+
+    <div class="modal-content">
+
+        <button class="close"
+                onclick="closeModal()">
+            ×
+        </button>
+
+        <div id="modalBody">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
